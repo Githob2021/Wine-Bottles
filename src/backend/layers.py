@@ -18,19 +18,17 @@
 import os
 import uuid
 import yaml
-import shutil
-import subprocess
 from glob import glob
 from typing import NewType
 
-from bottles.utils import UtilsLogger # pyright: reportMissingImports=false
-from bottles.backend.runner import Runner
-from bottles.backend.manager_utils import ManagerUtils
-from bottles.backend.globals import Paths, Samples
+from bottles.backend.logger import Logger # pyright: reportMissingImports=false
+from bottles.backend.models.samples import Samples
+from bottles.backend.utils.manager import ManagerUtils
+from bottles.backend.globals import Paths
 from bottles.backend.diff import Diff
 
 
-logging = UtilsLogger()
+logging = Logger()
 BottleConfig = NewType('BottleConfig', dict)
 
 

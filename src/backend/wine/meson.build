@@ -2,6 +2,7 @@ pkgdatadir = join_paths(get_option('prefix'), get_option('datadir'), meson.proje
 winedir = join_paths(pkgdatadir, 'bottles/backend/wine')
 
 bottles_sources = [
+  '__init__.py',
   'catalogs.py',
   'winecommand.py',
   'wineprogram.py',
@@ -19,6 +20,7 @@ bottles_sources = [
   'msiexec.py',
   'executor.py',
   'start.py',
+  'register.py',
   'winebridge.py',
 ]
 

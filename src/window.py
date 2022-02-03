@@ -24,11 +24,11 @@ from pathlib import Path
 
 from bottles.params import * # pyright: reportMissingImports=false
 from bottles.widgets.message import MessageEntry
-from bottles.utils import UtilsConnection, UtilsLogger, RunAsync
+from bottles.utils import UtilsConnection, Logger, RunAsync
 
 from bottles.backend.health import HealthChecker
-from bottles.backend.manager import Manager
-from bottles.backend.notifications import NotificationsManager
+from bottles.backend.managers.manager import Manager
+from bottles.backend.managers.notifications import NotificationsManager
 from bottles.backend.wine.executor import WineExecutor
 
 from bottles.views.new import NewView
@@ -38,10 +38,10 @@ from bottles.views.preferences import PreferencesWindow
 from bottles.views.importer import ImporterView
 
 from bottles.dialogs.crash import CrashReportDialog
-from bottles.dialogs.generic import AboutDialog, TextDialog
+from bottles.dialogs.generic import AboutDialog, SourceDialog
 from bottles.dialogs.onboard import OnboardDialog
 
-logging = UtilsLogger()
+logging = Logger()
 
 
 @Gtk.Template(resource_path='/com/usebottles/bottles/window.ui')
@@ -276,7 +276,7 @@ class MainWindow(Handy.ApplicationWindow):
         It will show the health view.
         '''
         ht = HealthChecker().get_results(plain=True)
-        TextDialog(
+        SourceDialog(
             parent=self,
             title=_("Health check"),
             message=ht,
@@ -322,9 +322,8 @@ class MainWindow(Handy.ApplicationWindow):
         self.show_prefs_view(widget, view=2)
 
     def check_crash_log(self):
-        log_path = f"{Path.home()}/.local/share/bottles/crash.log"
-        if "FLATPAK_ID" in os.environ:
-            log_path = f"{Path.home()}/.var/app/{os.environ['FLATPAK_ID']}/data/crash.log"
+        xdg_data_home = os.environ.get("XDG_DATA_HOME", f"{Path.home()}/.local/share")
+        log_path = f"{xdg_data_home}/bottles/crash.log"
         crash_log = False
 
         try:

@@ -2,16 +2,16 @@ import os
 import shlex
 from typing import NewType
 
-from bottles.utils import UtilsLogger # pyright: reportMissingImports=false
-from bottles.backend.result import Result
-from bottles.backend.manager_utils import ManagerUtils
+from bottles.backend.logger import Logger # pyright: reportMissingImports=false
+from bottles.backend.models.result import Result
+from bottles.backend.utils.manager import ManagerUtils
 from bottles.backend.wine.winecommand import WineCommand
 from bottles.backend.wine.cmd import CMD
 from bottles.backend.wine.msiexec import MsiExec
 from bottles.backend.wine.start import Start
 from bottles.backend.wine.winebridge import WineBridge
 
-logging = UtilsLogger()
+logging = Logger()
 
 # Define custom types for better understanding of the code
 BottleConfig = NewType('BottleConfig', dict)
@@ -161,9 +161,8 @@ class WineExecutor:
         )
     
     def __launch_batch(self):
-        cmd = CMD()
+        cmd = CMD(self.config)
         res = cmd.run_batch(
-            self.config,
             batch=self.exec_path,
             terminal=self.terminal,
             args=self.args,
@@ -178,7 +177,6 @@ class WineExecutor:
     def __launch_lnk(self):
         start = Start(self.config)
         res = start.run(
-            self.config,
             file=self.exec_path,
             terminal=self.terminal,
             args=self.args,

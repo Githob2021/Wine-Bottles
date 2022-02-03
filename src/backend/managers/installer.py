@@ -25,17 +25,16 @@ from functools import lru_cache
 from datetime import datetime
 from gi.repository import Gtk, GLib
 
-from .runner import Runner
-from .manager_utils import ManagerUtils
-from .globals import BottlesRepositories, Paths
-from ..utils import RunAsync, UtilsLogger
-from .layers import LayersStore, Layer
+from bottles.backend.utils.manager import ManagerUtils # pyright: reportMissingImports=false
+from bottles.backend.globals import BottlesRepositories, Paths
+from bottles.backend.logger import Logger
+from bottles.backend.layers import LayersStore, Layer
 
-from bottles.backend.wine.wineboot import WineBoot # pyright: reportMissingImports=false
-from bottles.backend.conf import ConfigManager
+from bottles.backend.wine.wineboot import WineBoot
+from bottles.backend.managers.conf import ConfigManager
 from bottles.backend.wine.executor import WineExecutor
 
-logging = UtilsLogger()
+logging = Logger()
 
 # Define custom types for better understanding of the code
 BottleConfig = NewType('BottleConfig', dict)
@@ -348,9 +347,9 @@ class InstallerManager:
 
     def install(self, config, installer, widget):
         if config.get("Environment") == "Layered":
-            wineboot = WineBoot(self.__layer.runtime_conf)
             self.__layer = Layer().new(installer[0], self.__manager.get_latest_runner())
             self.__layer.mount_bottle(config)
+            wineboot = WineBoot(self.__layer.runtime_conf)
             wineboot.init()
 
         manifest = self.get_installer(

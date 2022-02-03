@@ -2,14 +2,16 @@ import os
 import subprocess
 from typing import NewType
 
-from bottles.utils import UtilsLogger, UtilsTerminal, detect_encoding # pyright: reportMissingImports=false
-from bottles.backend.runtime import RuntimeManager
-from bottles.backend.manager_utils import ManagerUtils
-from bottles.backend.display import DisplayUtils
-from bottles.backend.gpu import GPUUtils
+from bottles.backend.utils.generic import detect_encoding # pyright: reportMissingImports=false
+from bottles.backend.managers.runtime import RuntimeManager
+from bottles.backend.utils.terminal import TerminalUtils
+from bottles.backend.utils.manager import ManagerUtils
+from bottles.backend.utils.display import DisplayUtils
+from bottles.backend.utils.gpu import GPUUtils
 from bottles.backend.globals import Paths, gamemode_available, gamescope_available
+from bottles.backend.logger import Logger
 
-logging = UtilsLogger()
+logging = Logger()
 
 # Define custom types for better understanding of the code
 BottleConfig = NewType('BottleConfig', dict)
@@ -107,6 +109,8 @@ class WineCommand:
             working directory.
             '''
             cwd = bottle
+
+        return cwd
 
     def __get_env(self, environment) -> dict:
         env = WineEnv()
@@ -281,7 +285,7 @@ class WineCommand:
 
     def __get_cmd(self, command, post_script) -> str:
         config = self.config
-        params = config["Parameters"]
+        params = config.get("Params", {})
         runner = self.runner
         command = f"{runner} {command}"
 
@@ -294,10 +298,10 @@ class WineCommand:
                 command = f"{command} {self.arguments}"
 
         if not self.minimal:
-            if gamemode_available and params["gamemode"]:
+            if gamemode_available and params.get("gamemode"):
                 command = f"{gamemode_available} {command}"
 
-            if gamescope_available and params["gamescope"]:
+            if gamescope_available and params.get("gamescope"):
                 command = f"{self.__get_gamescope_cmd()} {command}"
         
         if post_script is not None:
@@ -337,7 +341,7 @@ class WineCommand:
             return
 
         if self.terminal:
-            return UtilsTerminal().execute(self.command, self.env, self.colors)
+            return TerminalUtils().execute(self.command, self.env, self.colors)
             
         if self.comunicate:
             try:

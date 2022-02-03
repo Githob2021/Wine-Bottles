@@ -15,20 +15,18 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import shlex
 from typing import NewType
 
-from bottles.utils import UtilsLogger, RunAsync # pyright: reportMissingImports=false
+from bottles.utils import RunAsync # pyright: reportMissingImports=false
+from bottles.backend.logger import Logger
 from bottles.backend.globals import gamemode_available, gamescope_available
-from bottles.backend.manager_utils import ManagerUtils
-from bottles.backend.result import Result
+from bottles.backend.models.result import Result
 from bottles.backend.wine.catalogs import win_versions
 from bottles.backend.wine.winecommand import WineCommand
 from bottles.backend.wine.wineboot import WineBoot
-from bottles.backend.wine.wineserver import WineServer
 from bottles.backend.wine.reg import Reg
 
-logging = UtilsLogger()
+logging = Logger()
 
 # Define custom types for better understanding of the code
 BottleConfig = NewType('BottleConfig', dict)
@@ -130,6 +128,13 @@ class Runner:
                     "data": win_versions.get(version)["CurrentMajorVersionNumber"],
                     "keyType": "dword"
                 },
+            ],
+            "HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Control\\Windows": [
+                {
+                    "value": "CSDVersion",
+                    "data": win_versions.get(version)["CSDVersionHex"],
+                    "keyType": "dword"
+                }
             ]
         }
 
@@ -164,7 +169,7 @@ class Runner:
                     "value": "CurrentMajorVersionNumber",
                     "data": win_versions.get(version)["CurrentMajorVersionNumber"],
                     "keyType": "dword"
-                },
+                }
             ]
 
         if "ProductType" in win_versions.get(version):

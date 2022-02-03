@@ -20,14 +20,14 @@ import yaml
 import subprocess
 from glob import glob
 from datetime import datetime
-from gi.repository import Gtk
 
-from bottles.utils import UtilsLogger # pyright: reportMissingImports=false
-from bottles.backend.globals import TrdyPaths, Paths, Samples
-from bottles.backend.result import Result
+from bottles.backend.logger import Logger # pyright: reportMissingImports=false
+from bottles.backend.globals import TrdyPaths, Paths
+from bottles.backend.models.samples import Samples
+from bottles.backend.models.result import Result
 
 
-logging = UtilsLogger()
+logging = Logger()
 
 class ImportManager:
 

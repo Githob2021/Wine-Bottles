@@ -18,117 +18,15 @@
 import os
 import shutil
 from pathlib import Path
-from bottles.utils import UtilsLogger # pyright: reportMissingImports=false
-from bottles.backend.display import DisplayUtils
+from bottles.backend.logger import Logger # pyright: reportMissingImports=false
+from bottles.backend.utils.display import DisplayUtils
 
 
-logging = UtilsLogger()
+logging = Logger()
 
 class API:
     notifications = "https://raw.githubusercontent.com/bottlesdevs/data/main/notifications.yml"
     
-class Samples:
-
-    data = {
-        "notifications": []
-    }
-
-    config = {
-        "Name": "",
-        "Arch": "win64",
-        "Windows": "win10",
-        "Runner": "",
-        "WorkingDir": "",
-        "DXVK": "",
-        "NVAPI": "",
-        "VKD3D": "",
-        "Path": "",
-        "Custom_Path": False,
-        "Environment": "",
-        "Creation_Date": "",
-        "Update_Date": "",
-        "Versioning": False,
-        "State": 0,
-        "Parameters": {
-            "dxvk": False,
-            "dxvk_hud": False,
-            "dxvk_nvapi": False,
-            "vkd3d": False,
-            "gamemode": False,
-            "gamescope": False,
-            "gamescope_game_width": 0,
-            "gamescope_game_height": 0,
-            "gamescope_window_width": 0,
-            "gamescope_window_height": 0,
-            "gamescope_fps": 0,
-            "gamescope_fps_no_focus": 0,
-            "gamescope_scaling": False,
-            "gamescope_borderless": False,
-            "gamescope_fullscreen": True,
-            "sync": "wine",
-            "fsr": False,
-            "fsr_level": 5,
-            "aco_compiler": False,
-            "discrete_gpu": False,
-            "virtual_desktop": False,
-            "virtual_desktop_res": "1280x720",
-            "pulseaudio_latency": False,
-            "fullscreen_capture": False,
-            "fixme_logs": False,
-            "use_runtime": False,
-        },
-        "Environment_Variables": {},
-        "Installed_Dependencies": [],
-        "DLL_Overrides": {},
-        "External_Programs": {},
-        "Uninstallers": {},
-        "Latest_Executables": []
-    }
-
-    environments = {
-        "gaming": {
-            "Runner": "wine",
-            "Parameters": {
-                "dxvk": True,
-                # "nvapi": True,
-                "vkd3d": False,
-                "sync": "esync",
-                "fsr": False,
-                "discrete_gpu": True,
-                "pulseaudio_latency": True
-            },
-            "Installed_Dependencies": [
-                "d3dx9",
-                "msls31",
-                "arial32",
-                "times32",
-                "courie32",
-                "d3dcompiler_43",
-                "d3dcompiler_47"
-            ]
-        },
-        "application": {
-            "Runner": "wine",
-            "Parameters": {
-                "dxvk": True,
-                "vkd3d": True
-            },
-            "Installed_Dependencies": [
-                "arial32",
-                "times32",
-                "courie32",
-                "mono",
-                #"dotnet40",
-                #"dotnet48"
-            ]
-        },
-        "layered": {
-            "Runner": "wine",
-            "Layers": {}
-        },
-    }
-
-
 class BottlesRepositories:
     components = "https://raw.githubusercontent.com/bottlesdevs/components/main/"
     components_index = f"{components}/index.yml"
@@ -168,20 +66,18 @@ class BottlesRepositories:
             logging.error(f"Local installers path does not exist: {os.environ['LOCAL_INSTALLERS']}")
 
 
+# xdg data path
+xdg_data_home = os.environ.get("XDG_DATA_HOME", f"{Path.home()}/.local/share")
 class Paths:
 
     # Icon paths
-    icons_user = f"{Path.home()}/.local/share/icons"
+    icons_user = f"{xdg_data_home}/icons"
 
     # Local paths
-    base = f"{Path.home()}/.local/share/bottles"
+    base = f"{xdg_data_home}/bottles"
 
     # User applications path
-    applications = f"{Path.home()}/.local/share/applications/"
-
-    if "FLATPAK_ID" in os.environ:
-        base_n = base
-        base = f"{Path.home()}/.var/app/{os.environ['FLATPAK_ID']}/data/bottles"
+    applications = f"{xdg_data_home}/applications/"
 
     temp = f"{base}/temp"
     runners = f"{base}/runners"
@@ -191,14 +87,15 @@ class Paths:
     vkd3d = f"{base}/vkd3d"
     nvapi = f"{base}/nvapi"
     data = f"{base}/data.yml"
-
+    journal = f"{base}/journal.yml"
+    
 
 class TrdyPaths:
 
     # External managers paths
-    lutris = f"{Path.home()}*/Games"
-    playonlinux = f"{Path.home()}/.PlayOnLinux/wineprefix/"
-    bottlesv1 = f"{Path.home()}/.Bottles"
+    lutris = f"{xdg_data_home}*/Games"
+    playonlinux = f"{xdg_data_home}/.PlayOnLinux/wineprefix/"
+    bottlesv1 = f"{xdg_data_home}/.Bottles"
 
 
 # Check if gamemode is available
