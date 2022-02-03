@@ -9,10 +9,11 @@
     <br/>
     <a href="https://github.com/bottlesdevs/Bottles/pull/372">Issue 372</a> 
   </div>
+      <p align="center">/End Note</p>
+          <hr size="" width="" color="">  
 </div>
 
-  <br/>
-  
+
 <div align="center">
   <img src="https://static.wixstatic.com/media/2cd43b_1d9d87f47ff24a4f9b0b81fe576c689c~mv2.png/v1/fill/w_402,h_357,fp_0.50_0.50/2cd43b_1d9d87f47ff24a4f9b0b81fe576c689c~mv2.png" width="128">
   <h1 align="center">Wine Bottles</h1>
