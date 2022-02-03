@@ -1,6 +1,12 @@
 <div align="center">
+  <h1 align="center">Note</h1>
+  <p align="center">This is a placeholder fork for when the original Bottles goes through with its crazy mobile redesign for a desktop app /mindblown.</p>
+  <p align="center">The wine logo will also come back, because why not? Bottles is based on Wine not some ketchup and mustard bottles. Social justice warriors have overreached for too much and it's time to take a stand.</p>
+</div>
+
+<div align="center">
   <img src="https://raw.githubusercontent.com/bottlesdevs/Bottles/master/data/icons/hicolor/scalable/apps/com.usebottles.bottles.svg" width="64">
-  <h1 align="center">Bottles</h1>
+  <h1 align="center">Wine Bottles</h1>
   <p align="center">Easily manage wineprefix using environments</p>
 </div>
 
