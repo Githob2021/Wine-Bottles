@@ -1,11 +1,20 @@
 <div align="center">
   <h1 align="center">Note</h1>
   <p align="center">This is a placeholder fork for when the original Bottles goes through with its crazy mobile redesign for a desktop app /mindblown.</p>
-  <p align="center">The wine logo will also come back, because why not? Bottles is based on Wine not some ketchup and mustard bottles. Social justice warriors have overreached for too much and it's time to take a stand.</p>
+  <p align="center">The wine logo will also come back, because why not? Bottles is based on Wine not some ketchup and mustard bottles. Social justice warriors have overreached for too much and it's time to take a stand. Just look at this crazyness:</p>
+  
+  <div align="center">
+  <a href="">
+    <a href="https://github.com/bottlesdevs/Bottles/issues/356">Issue 356</a> 
+    <br/>
+    <a href="https://github.com/bottlesdevs/Bottles/pull/372">Issue 372</a> 
+  </div>
 </div>
 
+  <br/>
+  
 <div align="center">
-  <img src="https://raw.githubusercontent.com/bottlesdevs/Bottles/master/data/icons/hicolor/scalable/apps/com.usebottles.bottles.svg" width="64">
+  <img src="https://static.wixstatic.com/media/2cd43b_1d9d87f47ff24a4f9b0b81fe576c689c~mv2.png/v1/fill/w_402,h_357,fp_0.50_0.50/2cd43b_1d9d87f47ff24a4f9b0b81fe576c689c~mv2.png" width="128">
   <h1 align="center">Wine Bottles</h1>
   <p align="center">Easily manage wineprefix using environments</p>
 </div>
