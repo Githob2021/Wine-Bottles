@@ -1,7 +1,7 @@
 <div align="center">
   <h1 align="center">Note</h1>
   <p align="center">This is a placeholder fork for when the original Bottles goes through with its crazy mobile redesign for a desktop app /mindblown.</p>
-  <p align="center">The wine logo will also come back, because why not? Bottles is based on Wine not some ketchup and mustard bottles. Social justice warriors have overreached for too much and it's time to take a stand. Just look at this crazyness:</p>
+  <p align="center">The wine logo will also come back, because why not? Bottles is based on Wine not some ketchup and mustard bottles. Social justice warriors have overreached far too much and it's time to take a stand. Just look at this crazyness:</p>
   
   <div align="center">
   <a href="">
